@@ -1,12 +1,10 @@
-package com.devmode.shop.domain.user.application.usecase;
+package com.gpyeong.core.domain.auth.application.usecase;
 
+import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
+import com.gpyeong.core.domain.auth.domain.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.devmode.shop.domain.user.application.dto.response.ProfileResponse;
-import com.devmode.shop.domain.user.domain.service.UserService;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)

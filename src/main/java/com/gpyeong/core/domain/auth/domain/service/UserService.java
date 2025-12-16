@@ -1,17 +1,15 @@
-package com.devmode.shop.domain.user.domain.service;
+package com.gpyeong.core.domain.auth.domain.service;
 
+import static com.gpyeong.core.global.exception.code.status.GlobalErrorStatus._NOT_FOUND;
+
+import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
+import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
+import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
+import com.gpyeong.core.global.exception.RestApiException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.devmode.shop.domain.user.application.dto.request.SignUpRequest;
-import com.devmode.shop.domain.user.application.dto.response.ProfileResponse;
-import com.devmode.shop.domain.user.domain.entity.User;
-import com.devmode.shop.domain.user.domain.repository.UserRepository;
-import com.devmode.shop.global.exception.RestApiException;
-import static com.devmode.shop.global.exception.code.status.GlobalErrorStatus._NOT_FOUND;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

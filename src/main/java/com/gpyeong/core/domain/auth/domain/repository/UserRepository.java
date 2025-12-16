@@ -1,24 +1,18 @@
-package com.devmode.shop.domain.user.domain.repository;
+package com.gpyeong.core.domain.auth.domain.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.devmode.shop.domain.user.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.entity.User;
 
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
-    @Query("select count(u) > 0 from User u where u.email = :email")
-    Boolean existsByEmail(@Param("email") String email);
+    Boolean existsByEmail(String email);
 
-    @Query("select u from User u where u.email = :email")
-    Optional<User> findByEmail(@Param("email") String email);
+    Optional<User> findByEmail(String email);
     
-    @Query("select count(u) > 0 from User u where u.userId = :userId")
-    Boolean existsByUserId(@Param("userId") String userId);
+    Boolean existsByUserId(String userId);
     
-    @Query("select u from User u where u.userId = :userId")
-    Optional<User> findByUserId(@Param("userId") String userId);
+    Optional<User> findByUserId(String userId);
 }

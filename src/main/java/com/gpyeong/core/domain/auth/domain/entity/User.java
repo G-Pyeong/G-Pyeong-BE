@@ -1,38 +1,33 @@
-package com.devmode.shop.domain.user.domain.entity;
+package com.gpyeong.core.domain.auth.domain.entity;
 
-import com.devmode.shop.global.common.BaseEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.gpyeong.core.global.common.BaseEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Document(collection = "users")
 @Getter
-@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class User extends BaseEntity {
     
     @Id
-    @Column(nullable = false, unique = true)
     private String userId;
     
-    @Column(nullable = false)
     private String name;
     
-    @Column(nullable = false, unique = true)
+    @Indexed(unique = true)
     private String email;
     
-    @Column(nullable = false)
     private String password;
     
-    @Column(nullable = false)
     private String birth;
     
     public void updateProfile(String name, String birth, String encodedNewPassword) {

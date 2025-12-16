@@ -1,18 +1,16 @@
-package com.devmode.shop.domain.user.application.usecase;
+package com.gpyeong.core.domain.auth.application.usecase;
 
+import static com.gpyeong.core.global.exception.code.status.GlobalErrorStatus._UNAUTHORIZED;
+
+import com.gpyeong.core.domain.auth.application.dto.request.UpdateProfileRequest;
+import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
+import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.service.UserService;
+import com.gpyeong.core.global.exception.RestApiException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.devmode.shop.domain.user.application.dto.request.UpdateProfileRequest;
-import com.devmode.shop.domain.user.application.dto.response.ProfileResponse;
-import com.devmode.shop.domain.user.domain.entity.User;
-import com.devmode.shop.domain.user.domain.service.UserService;
-import com.devmode.shop.global.exception.RestApiException;
-import static com.devmode.shop.global.exception.code.status.GlobalErrorStatus._NOT_FOUND;
-import static com.devmode.shop.global.exception.code.status.GlobalErrorStatus._UNAUTHORIZED;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional

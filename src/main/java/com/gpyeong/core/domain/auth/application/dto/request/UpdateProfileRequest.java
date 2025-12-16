@@ -1,4 +1,4 @@
-package com.devmode.shop.domain.user.application.dto.request;
+package com.gpyeong.core.domain.auth.application.dto.request;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;

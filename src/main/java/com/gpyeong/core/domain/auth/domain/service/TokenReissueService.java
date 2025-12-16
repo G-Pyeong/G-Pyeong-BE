@@ -1,18 +1,16 @@
-package com.devmode.shop.domain.user.domain.service;
+package com.gpyeong.core.domain.auth.domain.service;
 
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EXPIRED_MEMBER_JWT;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
+
+import com.gpyeong.core.domain.auth.application.dto.response.TokenReissueResponse;
+import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.security.TokenProvider;
 import java.time.Duration;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.devmode.shop.domain.user.application.dto.response.TokenReissueResponse;
-import com.devmode.shop.domain.user.domain.entity.User;
-import com.devmode.shop.global.exception.RestApiException;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.EXPIRED_MEMBER_JWT;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
-import com.devmode.shop.global.security.TokenProvider;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
