@@ -34,7 +34,7 @@ public class UpdateProfileUseCase {
 			encodedNewPassword = passwordEncoder.encode(request.newPassword());
 		}
 
-		user.updateProfile(request.name(), request.birth(), encodedNewPassword);
+		user.updateProfile(request.name(), request.department(), request.admissionYear(), request.grade(), encodedNewPassword);
 		return ProfileResponse.create(user);
 	}
 }

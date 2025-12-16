@@ -1,7 +1,10 @@
 package com.gpyeong.core.domain.auth.application.dto.request;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record SignUpRequest(
         @NotBlank(message = "이메일은 필수입니다.")
@@ -17,6 +20,15 @@ public record SignUpRequest(
         @NotBlank(message = "이름은 필수입니다.")
         @NotBlank String name,
 
-        @NotBlank(message = "생년월일은 필수입니다.")
-        @NotBlank String birth
+        @NotBlank(message = "학과(부)는 필수입니다.")
+        String department,
+
+        @NotNull(message = "입학년도는 필수입니다.")
+        @Min(value = 2021, message = "2021년도 이후 입학생만 가입 가능합니다.")
+        Integer admissionYear,
+
+        @NotNull(message = "학년은 필수입니다.")
+        @Min(value = 1, message = "학년은 1학년 이상이어야 합니다.")
+        @Max(value = 4, message = "학년은 4학년 이하여야 합니다.")
+        Integer grade
 ) {}

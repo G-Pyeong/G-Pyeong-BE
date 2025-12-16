@@ -7,6 +7,7 @@ import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
 import com.gpyeong.core.domain.auth.domain.entity.User;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
 import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final EmailVerificationService emailVerificationService;
+
+	@org.springframework.beans.factory.annotation.Value("${app.auth.school-name}")
+	private String schoolName;
 
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email)
@@ -37,12 +42,19 @@ public class UserService {
 	}
 
 	public User save(SignUpRequest request) {
+		if (!emailVerificationService.isVerified(request.email())) {
+			throw new RestApiException(GlobalErrorStatus._UNAUTHORIZED);
+		}
+
 		User user = User.builder()
 				.userId(request.userId())
 				.email(request.email())
 				.password(passwordEncoder.encode(request.password()))
 				.name(request.name())
-				.birth(request.birth())
+				.school(schoolName)
+				.department(request.department())
+				.admissionYear(request.admissionYear())
+				.grade(request.grade())
 				.build();
 		return userRepository.save(user);
 	}

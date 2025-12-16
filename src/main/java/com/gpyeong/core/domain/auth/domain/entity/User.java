@@ -28,11 +28,19 @@ public class User extends BaseEntity {
     
     private String password;
     
-    private String birth;
+    private String school;
     
-    public void updateProfile(String name, String birth, String encodedNewPassword) {
+    private String department;
+    
+    private Integer admissionYear;
+    
+    private Integer grade;
+    
+    public void updateProfile(String name, String department, Integer admissionYear, Integer grade, String encodedNewPassword) {
         this.name = name;
-        this.birth = birth;
+        this.department = department;
+        this.admissionYear = admissionYear;
+        this.grade = grade;
         if (encodedNewPassword != null && !encodedNewPassword.isBlank()) {
             this.password = encodedNewPassword;
         }
