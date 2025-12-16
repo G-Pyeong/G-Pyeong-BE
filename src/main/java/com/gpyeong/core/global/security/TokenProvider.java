@@ -1,5 +1,14 @@
-package com.yd.vibecode.global.security;
+package com.gpyeong.core.global.security;
 
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.UNSUPPORTED_JWT;
+
+import com.gpyeong.core.global.exception.RestApiException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
@@ -8,21 +17,10 @@ import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import com.yd.vibecode.global.exception.RestApiException;
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.UNSUPPORTED_JWT;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

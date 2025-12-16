@@ -1,7 +1,6 @@
-package com.yd.vibecode.global.config;
+package com.gpyeong.core.global.config;
 
 import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

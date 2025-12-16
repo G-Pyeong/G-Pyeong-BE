@@ -1,15 +1,8 @@
-package com.gpyeong.core.global.security;
+package com.gpyeong.core.global.config;
 
-import com.yd.vibecode.domain.auth.domain.service.RefreshTokenService;
-import com.yd.vibecode.domain.auth.domain.service.TokenWhitelistService;
-import com.yd.vibecode.global.config.properties.CorsProperties;
-import com.yd.vibecode.global.exception.code.BaseCode;
-import com.yd.vibecode.global.exception.code.status.GlobalErrorStatus;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,6 +18,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.gpyeong.core.domain.auth.domain.service.RefreshTokenService;
+import com.gpyeong.core.domain.auth.domain.service.TokenWhitelistService;
+import com.gpyeong.core.global.config.properties.CorsProperties;
+import com.gpyeong.core.global.exception.code.BaseCode;
+import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
+import com.gpyeong.core.global.security.ExcludeAuthPathProperties;
+import com.gpyeong.core.global.security.JwtAuthenticationFilter;
+import com.gpyeong.core.global.security.TokenProvider;
+
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
@@ -58,6 +64,7 @@ public class SecurityConfig {
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.requestMatchers(
 						"/swagger-ui/**",
+						"/v3/api-docs",
 						"/v3/api-docs/**",
 						"/swagger-ui.html",
 						"/webjars/**"

@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.exception.code;
+package com.gpyeong.core.global.exception.code;
 
 import java.util.Objects;
 import lombok.Builder;

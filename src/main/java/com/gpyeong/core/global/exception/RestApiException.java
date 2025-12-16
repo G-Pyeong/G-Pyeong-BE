@@ -1,7 +1,7 @@
-package com.yd.vibecode.global.exception;
+package com.gpyeong.core.global.exception;
 
-import com.yd.vibecode.global.exception.code.BaseCode;
-import com.yd.vibecode.global.exception.code.BaseCodeInterface;
+import com.gpyeong.core.global.exception.code.BaseCode;
+import com.gpyeong.core.global.exception.code.BaseCodeInterface;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor // 생성자를 만들어주는 어노테이션

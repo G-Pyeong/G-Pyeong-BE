@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.security;
+package com.gpyeong.core.global.security;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.config.properties;
+package com.gpyeong.core.global.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

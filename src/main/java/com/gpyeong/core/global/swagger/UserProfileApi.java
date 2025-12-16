@@ -1,15 +1,14 @@
-package com.devmode.shop.global.swagger;
+package com.gpyeong.core.global.swagger;
 
+import com.gpyeong.core.domain.auth.application.dto.request.UpdateProfileRequest;
+import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
+import com.gpyeong.core.global.common.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import com.devmode.shop.domain.user.application.dto.request.UpdateProfileRequest;
-import com.devmode.shop.domain.user.application.dto.response.ProfileResponse;
-import com.devmode.shop.global.common.BaseResponse;
 
 /**
  * 사용자 프로필 관리 API 인터페이스 (UserController용)

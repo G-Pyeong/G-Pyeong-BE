@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.exception.code;
+package com.gpyeong.core.global.exception.code;
 
 public interface BaseCodeInterface {
     BaseCode getCode();

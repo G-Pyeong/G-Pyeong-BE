@@ -1,11 +1,11 @@
-package com.yd.vibecode.global.resolver;
+package com.gpyeong.core.global.resolver;
 
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
-import static com.yd.vibecode.global.exception.code.status.GlobalErrorStatus._UNAUTHORIZED;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
+import static com.gpyeong.core.global.exception.code.status.GlobalErrorStatus._UNAUTHORIZED;
 
-import com.yd.vibecode.global.annotation.RefreshToken;
-import com.yd.vibecode.global.exception.RestApiException;
-import com.yd.vibecode.global.security.TokenProvider;
+import com.gpyeong.core.global.annotation.RefreshToken;
+import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.security.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

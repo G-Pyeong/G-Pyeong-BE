@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.annotation;
+package com.gpyeong.core.global.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

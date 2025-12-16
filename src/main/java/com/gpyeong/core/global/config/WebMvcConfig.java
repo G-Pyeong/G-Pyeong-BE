@@ -1,11 +1,11 @@
-package com.yd.vibecode.global.config;
+package com.gpyeong.core.global.config;
 
-import com.yd.vibecode.global.interceptor.JwtBlacklistInterceptor;
-import com.yd.vibecode.global.resolver.CurrentUserArgumentResolver;
-import com.yd.vibecode.global.resolver.RefreshTokenArgumentResolver;
-import com.yd.vibecode.global.resolver.AccessTokenArgumentResolver;
-import com.yd.vibecode.global.security.ExcludeBlacklistPathProperties;
-import com.yd.vibecode.global.security.TokenProvider;
+import com.gpyeong.core.global.interceptor.JwtBlacklistInterceptor;
+import com.gpyeong.core.global.resolver.AccessTokenArgumentResolver;
+import com.gpyeong.core.global.resolver.CurrentUserArgumentResolver;
+import com.gpyeong.core.global.resolver.RefreshTokenArgumentResolver;
+import com.gpyeong.core.global.security.ExcludeBlacklistPathProperties;
+import com.gpyeong.core.global.security.TokenProvider;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

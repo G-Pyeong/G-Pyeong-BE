@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.config;
+package com.gpyeong.core.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -32,8 +32,8 @@ public class SwaggerConfig {
                 .components(components)
                 .addSecurityItem(requirement)
                 .info(new Info()
-                        .title("VibeCode API")
-                        .description("VibeCode 백엔드 API")
+                        .title("G-pyeong API")
+                        .description("G-pyeong 백엔드 API")
                         .version("1.0.0")
                 );
     }

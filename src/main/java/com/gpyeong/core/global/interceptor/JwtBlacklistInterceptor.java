@@ -1,17 +1,16 @@
-package com.yd.vibecode.global.interceptor;
+package com.gpyeong.core.global.interceptor;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EXPIRED_MEMBER_JWT;
 
-import com.yd.vibecode.domain.auth.domain.service.TokenBlacklistService;
-import com.yd.vibecode.global.exception.RestApiException;
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.EXPIRED_MEMBER_JWT;
-import com.yd.vibecode.global.security.TokenProvider;
-
+import com.gpyeong.core.domain.auth.domain.service.TokenBlacklistService;
+import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.security.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 @RequiredArgsConstructor

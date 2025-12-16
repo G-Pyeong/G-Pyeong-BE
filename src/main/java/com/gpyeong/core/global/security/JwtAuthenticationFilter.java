@@ -1,28 +1,26 @@
-package com.yd.vibecode.global.security;
+package com.gpyeong.core.global.security;
 
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
+
+import com.gpyeong.core.domain.auth.domain.service.RefreshTokenService;
+import com.gpyeong.core.domain.auth.domain.service.TokenWhitelistService;
+import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.exception.code.status.AuthErrorStatus;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Duration;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.PathContainer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.pattern.PathPatternParser;
-
-import com.yd.vibecode.domain.auth.domain.service.RefreshTokenService;
-import com.yd.vibecode.domain.auth.domain.service.TokenWhitelistService;
-import com.yd.vibecode.global.exception.RestApiException;
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
-import static com.yd.vibecode.global.exception.code.status.AuthErrorStatus.INVALID_ACCESS_TOKEN;
-
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -67,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 tokenWhitelistService.whitelist(token, Duration.ofMinutes(5));
             } else {
                 log.warn("[JwtAuthFilter] invalid token");
-                throw new RestApiException(INVALID_ACCESS_TOKEN);
+                throw new RestApiException(AuthErrorStatus.INVALID_ACCESS_TOKEN);
             }
 
             filterChain.doFilter(request, response);

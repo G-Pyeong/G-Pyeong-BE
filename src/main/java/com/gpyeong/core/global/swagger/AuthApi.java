@@ -1,18 +1,17 @@
-package com.devmode.shop.global.swagger;
+package com.gpyeong.core.global.swagger;
 
+import com.gpyeong.core.domain.auth.application.dto.request.LoginRequest;
+import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
+import com.gpyeong.core.domain.auth.application.dto.request.TokenReissueRequest;
+import com.gpyeong.core.domain.auth.application.dto.response.LoginResponse;
+import com.gpyeong.core.domain.auth.application.dto.response.TokenReissueResponse;
+import com.gpyeong.core.global.common.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import com.devmode.shop.domain.user.application.dto.request.SignUpRequest;
-import com.devmode.shop.domain.user.application.dto.request.LoginRequest;
-import com.devmode.shop.domain.user.application.dto.request.TokenReissueRequest;
-import com.devmode.shop.domain.user.application.dto.response.LoginResponse;
-import com.devmode.shop.domain.user.application.dto.response.TokenReissueResponse;
-import com.devmode.shop.global.common.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**

@@ -1,4 +1,4 @@
-package com.yd.vibecode.global.common;
+package com.gpyeong.core.global.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

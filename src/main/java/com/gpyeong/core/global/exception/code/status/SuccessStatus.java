@@ -1,7 +1,7 @@
-package com.yd.vibecode.global.exception.code.status;
+package com.gpyeong.core.global.exception.code.status;
 
-import com.yd.vibecode.global.exception.code.BaseCode;
-import com.yd.vibecode.global.exception.code.BaseCodeInterface;
+import com.gpyeong.core.global.exception.code.BaseCode;
+import com.gpyeong.core.global.exception.code.BaseCodeInterface;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

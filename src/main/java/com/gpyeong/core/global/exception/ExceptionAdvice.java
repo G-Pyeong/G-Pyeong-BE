@@ -1,8 +1,8 @@
-package com.yd.vibecode.global.exception;
+package com.gpyeong.core.global.exception;
 
-import com.yd.vibecode.global.common.BaseResponse;
-import com.yd.vibecode.global.exception.code.BaseCode;
-import com.yd.vibecode.global.exception.code.status.GlobalErrorStatus;
+import com.gpyeong.core.global.common.BaseResponse;
+import com.gpyeong.core.global.exception.code.BaseCode;
+import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
 import jakarta.validation.ConstraintViolationException;
 import java.util.LinkedHashMap;
 import java.util.Map;
