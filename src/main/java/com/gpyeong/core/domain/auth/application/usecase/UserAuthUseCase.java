@@ -1,33 +1,31 @@
-package com.devmode.shop.domain.user.application.usecase;
+package com.gpyeong.core.domain.auth.application.usecase;
 
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.ALREADY_REGISTERED_EMAIL;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.ALREADY_REGISTERED_USER_ID;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.EXPIRED_REFRESH_TOKEN;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.INVALID_ACCESS_TOKEN;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
+import static com.gpyeong.core.global.exception.code.status.AuthErrorStatus.LOGIN_ERROR;
+
+import com.gpyeong.core.domain.auth.application.dto.request.LoginRequest;
+import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
+import com.gpyeong.core.domain.auth.application.dto.request.TokenReissueRequest;
+import com.gpyeong.core.domain.auth.application.dto.response.LoginResponse;
+import com.gpyeong.core.domain.auth.application.dto.response.TokenReissueResponse;
+import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.service.RefreshTokenService;
+import com.gpyeong.core.domain.auth.domain.service.TokenBlacklistService;
+import com.gpyeong.core.domain.auth.domain.service.TokenWhitelistService;
+import com.gpyeong.core.domain.auth.domain.service.UserService;
+import com.gpyeong.core.global.exception.RestApiException;
+import com.gpyeong.core.global.security.TokenProvider;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.Duration;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.devmode.shop.domain.user.application.dto.request.LoginRequest;
-import com.devmode.shop.domain.user.application.dto.request.SignUpRequest;
-import com.devmode.shop.domain.user.application.dto.request.TokenReissueRequest;
-import com.devmode.shop.domain.user.application.dto.response.LoginResponse;
-import com.devmode.shop.domain.user.application.dto.response.TokenReissueResponse;
-import com.devmode.shop.domain.user.domain.entity.User;
-import com.devmode.shop.domain.user.domain.service.RefreshTokenService;
-import com.devmode.shop.domain.user.domain.service.TokenBlacklistService;
-import com.devmode.shop.domain.user.domain.service.TokenWhitelistService;
-import com.devmode.shop.domain.user.domain.service.UserService;
-import com.devmode.shop.global.exception.RestApiException;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.ALREADY_REGISTERED_EMAIL;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.ALREADY_REGISTERED_USER_ID;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.EMPTY_JWT;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.INVALID_ACCESS_TOKEN;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.INVALID_REFRESH_TOKEN;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.EXPIRED_REFRESH_TOKEN;
-import static com.devmode.shop.global.exception.code.status.AuthErrorStatus.LOGIN_ERROR;
-import com.devmode.shop.global.security.TokenProvider;
-
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -73,15 +71,6 @@ public class UserAuthUseCase {
 		refreshTokenService.deleteRefreshToken(userId);
 		tokenWhitelistService.deleteWhitelistToken(accessToken);
 		tokenBlacklistService.blacklist(accessToken, expiration);
-	}
-
-	/**
-	 * 사용자 ID로 로그아웃 처리
-	 * @CurrentUser 어노테이션과 함께 사용하기 위한 메서드
-	 */
-	public void logout(String userId) {
-		// 사용자의 리프레시 토큰만 삭제 (액세스 토큰은 만료 시까지 유효)
-		refreshTokenService.deleteRefreshToken(userId);
 	}
 	
 	public TokenReissueResponse reissueToken(TokenReissueRequest request) {
