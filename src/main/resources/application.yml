@@ -1,3 +1,8 @@
+app:
+  auth:
+    school-name: 가천대학교
+    allowed-email-domain: gachon.ac.kr
+
 spring:
   config:
     import: optional:classpath:application-secret.yml
@@ -16,6 +21,14 @@ exclude-auth-path-patterns:
       method: GET
     - path-pattern: /actuator/**
       method: GET
+    - path-pattern: /api/users/signup
+      method: POST
+    - path-pattern: /api/users/login
+      method: POST
+    - path-pattern: /api/users/reissue
+      method: POST
+    - path-pattern: /api/auth/email/**
+      method: POST
     - path-pattern: /**
       method: OPTIONS
 
@@ -33,6 +46,14 @@ exclude-blacklist-path-patterns:
       method: GET
     - path-pattern: /actuator/**
       method: GET
+    - path-pattern: /api/users/signup
+      method: POST
+    - path-pattern: /api/users/login
+      method: POST
+    - path-pattern: /api/users/reissue
+      method: POST
+    - path-pattern: /api/auth/email/**
+      method: POST
     - path-pattern: /**
       method: OPTIONS
 
