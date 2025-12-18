@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * 인증 관련 API 인터페이스
  */
 @Tag(name = "인증 관리", description = "사용자 인증, 회원가입, 로그인, 로그아웃")
-public interface AuthApi extends BaseApi {
+public interface AuthApi {
     
     @Operation(
         summary = "회원가입",

@@ -11,7 +11,7 @@ public record UpdateProfileRequest(
 		@NotBlank String name,
 		@NotBlank @Email String email,
 		@NotBlank String department,
-		@NotNull Integer admissionYear,
+		@NotNull Integer yearId,
 		@NotNull Integer grade,
 		String currentPassword,
 		String newPassword

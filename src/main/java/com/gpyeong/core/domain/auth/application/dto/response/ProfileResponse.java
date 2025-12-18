@@ -6,9 +6,9 @@ public record ProfileResponse(
 		String userId,
 		String email,
 		String name,
-		String school,
+		Integer universityId,
 		String department,
-		Integer admissionYear,
+		Integer yearId,
 		Integer grade
 ) {
 	public static ProfileResponse create(User user) {
@@ -16,9 +16,9 @@ public record ProfileResponse(
 				user.getUserId(),
 				user.getEmail(),
 				user.getName(),
-				user.getSchool(),
+				user.getUniversityId(),
 				user.getDepartment(),
-				user.getAdmissionYear(),
+				user.getYearId(),
 				user.getGrade()
 		);
 	}

@@ -20,9 +20,6 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final EmailVerificationService emailVerificationService;
 
-	@org.springframework.beans.factory.annotation.Value("${app.auth.school-name}")
-	private String schoolName;
-
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email)
 				.orElseThrow(() -> new RestApiException(_NOT_FOUND));
@@ -51,9 +48,9 @@ public class UserService {
 				.email(request.email())
 				.password(passwordEncoder.encode(request.password()))
 				.name(request.name())
-				.school(schoolName)
+				.universityId(request.universityId())
 				.department(request.department())
-				.admissionYear(request.admissionYear())
+				.yearId(request.yearId())
 				.grade(request.grade())
 				.build();
 		return userRepository.save(user);

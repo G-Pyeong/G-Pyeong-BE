@@ -35,10 +35,7 @@ class UserServiceTest {
     @Mock
     private EmailVerificationService emailVerificationService;
 
-    @BeforeEach
-    void setUp() {
-        ReflectionTestUtils.setField(userService, "schoolName", "가천대학교");
-    }
+
 
     @Test
     @DisplayName("회원가입 성공 - 이메일 인증 완료됨")
@@ -50,6 +47,7 @@ class UserServiceTest {
                 "Password123!",
                 "홍길동",
                 "컴퓨터공학과",
+                1,
                 2021,
                 3
         );
@@ -65,9 +63,9 @@ class UserServiceTest {
         assertThat(savedUser.getUserId()).isEqualTo("testuser");
         assertThat(savedUser.getEmail()).isEqualTo("test@gachon.ac.kr");
         assertThat(savedUser.getName()).isEqualTo("홍길동");
-        assertThat(savedUser.getSchool()).isEqualTo("가천대학교");
+        assertThat(savedUser.getUniversityId()).isEqualTo(1);
         assertThat(savedUser.getDepartment()).isEqualTo("컴퓨터공학과");
-        assertThat(savedUser.getAdmissionYear()).isEqualTo(2021);
+        assertThat(savedUser.getYearId()).isEqualTo(2021);
         assertThat(savedUser.getGrade()).isEqualTo(3);
         assertThat(savedUser.getPassword()).isEqualTo("encodedPassword");
 
@@ -85,6 +83,7 @@ class UserServiceTest {
                 "Password123!",
                 "홍길동",
                 "컴퓨터공학과",
+                1,
                 2021,
                 3
         );
