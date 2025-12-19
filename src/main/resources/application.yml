@@ -21,10 +21,10 @@ exclude-auth-path-patterns:
       method: GET
     - path-pattern: /actuator/**
       method: GET
-    - path-pattern: /api/users/signup
-      method: POST
-    - path-pattern: /api/users/login
-      method: POST
+    - path-pattern: /api/users/login/google
+      method: GET
+    - path-pattern: /api/users/login/success
+      method: GET
     - path-pattern: /api/users/reissue
       method: POST
     - path-pattern: /api/auth/email/**
@@ -46,10 +46,10 @@ exclude-blacklist-path-patterns:
       method: GET
     - path-pattern: /actuator/**
       method: GET
-    - path-pattern: /api/users/signup
-      method: POST
-    - path-pattern: /api/users/login
-      method: POST
+    - path-pattern: /api/users/login/google
+      method: GET
+    - path-pattern: /api/users/login/success
+      method: GET
     - path-pattern: /api/users/reissue
       method: POST
     - path-pattern: /api/auth/email/**

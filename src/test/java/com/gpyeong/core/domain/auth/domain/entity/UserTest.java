@@ -14,50 +14,47 @@ class UserTest {
         User user = User.builder()
                 .userId("testuser")
                 .email("test@gachon.ac.kr")
-                .password("oldPassword")
                 .name("홍길동")
+                .providerId("google-12345")
+                .provider(OAuthProvider.GOOGLE)
                 .universityId(1)
                 .department("소프트웨어학과")
                 .yearId(2021)
-                .grade(3)
+                .gradeId(GradeId.THIRD)
                 .build();
 
         String newName = "홍길순";
         String newDepartment = "인공지능학과";
         Integer newYearId = 2022;
-        Integer newGrade = 2;
-        String newPassword = "newPassword";
+        GradeId newGradeId = GradeId.SECOND;
 
         // when
-        user.updateProfile(newName, newDepartment, newYearId, newGrade, newPassword);
+        user.updateProfile(newName, newDepartment, newYearId, newGradeId);
 
         // then
         assertThat(user.getName()).isEqualTo(newName);
         assertThat(user.getDepartment()).isEqualTo(newDepartment);
         assertThat(user.getYearId()).isEqualTo(newYearId);
-        assertThat(user.getGrade()).isEqualTo(newGrade);
-        assertThat(user.getPassword()).isEqualTo(newPassword);
+        assertThat(user.getGradeId()).isEqualTo(newGradeId);
     }
 
     @Test
-    @DisplayName("User 프로필 업데이트 - 비밀번호 미변경")
-    void updateProfile_NoPasswordChange() {
-        // given
+    @DisplayName("User OAuth 로그인 - 신규 사용자 생성")
+    void createOAuthUser() {
+        // given & when
         User user = User.builder()
                 .userId("testuser")
                 .email("test@gachon.ac.kr")
-                .password("oldPassword")
                 .name("홍길동")
-                .universityId(1)
-                .department("컴퓨터공학과")
-                .yearId(2021)
-                .grade(3)
+                .providerId("google-12345")
+                .provider(OAuthProvider.GOOGLE)
+                // universityId, department, yearId, gradeId는 온보딩에서 설정
                 .build();
 
-        // when
-        user.updateProfile("홍길순", "인공지능학과", 2022, 2, null);
-
         // then
-        assertThat(user.getPassword()).isEqualTo("oldPassword");
+        assertThat(user.getProviderId()).isEqualTo("google-12345");
+        assertThat(user.getProvider()).isEqualTo(OAuthProvider.GOOGLE);
+        assertThat(user.getUniversityId()).isNull(); // 온보딩 전
+        assertThat(user.getGradeId()).isNull(); // 온보딩 전
     }
 }
