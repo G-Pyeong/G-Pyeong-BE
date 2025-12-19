@@ -23,7 +23,7 @@ public class UserProfileUseCase {
 				profileDto.universityId(),
 				profileDto.department(),
 				profileDto.yearId(),
-				profileDto.grade()
+				profileDto.gradeId()
 		);
 	}
 }

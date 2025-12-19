@@ -2,7 +2,6 @@ package com.gpyeong.core.domain.auth.application.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 public record EmailRequest(
         @NotBlank(message = "이메일은 필수입니다.")

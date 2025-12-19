@@ -7,9 +7,7 @@ import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
 import com.gpyeong.core.domain.auth.domain.entity.User;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
 import com.gpyeong.core.global.exception.RestApiException;
-import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,8 +15,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
-	private final EmailVerificationService emailVerificationService;
 
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email)
@@ -38,21 +34,25 @@ public class UserService {
 		return userRepository.existsByUserId(userId);
 	}
 
-	public User save(SignUpRequest request) {
-		if (!emailVerificationService.isVerified(request.email())) {
-			throw new RestApiException(GlobalErrorStatus._UNAUTHORIZED);
-		}
-
-		User user = User.builder()
-				.userId(request.userId())
-				.email(request.email())
-				.password(passwordEncoder.encode(request.password()))
+	/**
+	 * 온보딩 완료 - OAuth 로그인 이후 사용자 추가 정보 업데이트
+	 */
+	public User completeOnboarding(String userId, SignUpRequest request) {
+		User user = findByUserId(userId);
+		
+		// 온보딩 정보 업데이트
+		user = User.builder()
+				.userId(user.getUserId())
+				.email(user.getEmail())
 				.name(request.name())
+				.providerId(user.getProviderId())
+				.provider(user.getProvider())
 				.universityId(request.universityId())
 				.department(request.department())
 				.yearId(request.yearId())
-				.grade(request.grade())
+				.gradeId(request.gradeId())
 				.build();
+		
 		return userRepository.save(user);
 	}
 

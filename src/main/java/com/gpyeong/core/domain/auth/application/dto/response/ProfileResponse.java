@@ -1,5 +1,6 @@
 package com.gpyeong.core.domain.auth.application.dto.response;
 
+import com.gpyeong.core.domain.auth.domain.entity.GradeId;
 import com.gpyeong.core.domain.auth.domain.entity.User;
 
 public record ProfileResponse(
@@ -9,7 +10,7 @@ public record ProfileResponse(
 		Integer universityId,
 		String department,
 		Integer yearId,
-		Integer grade
+		GradeId gradeId
 ) {
 	public static ProfileResponse create(User user) {
 		return new ProfileResponse(
@@ -19,7 +20,7 @@ public record ProfileResponse(
 				user.getUniversityId(),
 				user.getDepartment(),
 				user.getYearId(),
-				user.getGrade()
+				user.getGradeId()
 		);
 	}
 }

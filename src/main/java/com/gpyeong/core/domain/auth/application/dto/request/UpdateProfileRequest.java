@@ -1,8 +1,6 @@
 package com.gpyeong.core.domain.auth.application.dto.request;
 
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.AssertTrue;
+import com.gpyeong.core.domain.auth.domain.entity.GradeId;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,13 +10,5 @@ public record UpdateProfileRequest(
 		@NotBlank @Email String email,
 		@NotBlank String department,
 		@NotNull Integer yearId,
-		@NotNull Integer grade,
-		String currentPassword,
-		String newPassword
-) {
-	@AssertTrue(message = "currentPassword is required when newPassword is provided")
-	public boolean isPasswordChangeValid() {
-		if (newPassword == null || newPassword.isBlank()) return true; // 변경 안 함
-		return currentPassword != null && !currentPassword.isBlank();  // 변경 시 현재 비번 필수
-	}
-}
+		@NotNull GradeId gradeId
+) {}
