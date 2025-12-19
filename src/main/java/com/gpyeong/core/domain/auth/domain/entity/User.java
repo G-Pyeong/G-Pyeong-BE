@@ -26,7 +26,9 @@ public class User extends BaseEntity {
     @Indexed(unique = true)
     private String email;
     
-    private String password;
+    private String providerId;
+    
+    private OAuthProvider provider;
     
     private Integer universityId;
     
@@ -34,16 +36,13 @@ public class User extends BaseEntity {
     
     private Integer yearId;
     
-    private Integer grade;
+    private GradeId gradeId;
     
-    public void updateProfile(String name, String department, Integer yearId, Integer grade, String encodedNewPassword) {
+    public void updateProfile(String name, String department, Integer yearId, GradeId gradeId) {
         this.name = name;
         this.department = department;
         this.yearId = yearId;
-        this.grade = grade;
-        if (encodedNewPassword != null && !encodedNewPassword.isBlank()) {
-            this.password = encodedNewPassword;
-        }
+        this.gradeId = gradeId;
     }
 }
 
