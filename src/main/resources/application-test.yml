@@ -40,3 +40,11 @@ jwt:
     expiration: 3600000
   refresh:
     expiration: 604800000
+
+app:
+  auth:
+    redirect-url: http://localhost:8080/test-callback
+    allowed-email-domain: gachon.ac.kr
+
+email:
+  from: test@gachon.ac.kr
