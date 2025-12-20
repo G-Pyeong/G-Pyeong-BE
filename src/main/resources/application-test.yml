@@ -2,6 +2,13 @@ spring:
   config:
     activate:
       on-profile: test
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: dummy-client-id
+            client-secret: dummy-client-secret
   data:
     redis:
       host: localhost
