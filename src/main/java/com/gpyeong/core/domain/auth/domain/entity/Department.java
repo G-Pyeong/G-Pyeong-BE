@@ -1,4 +1,4 @@
-package com.gpyeong.core.domain.member.domain.entity;
+package com.gpyeong.core.domain.auth.domain.entity;
 
 import com.gpyeong.core.global.common.BaseEntity;
 import lombok.AllArgsConstructor;
