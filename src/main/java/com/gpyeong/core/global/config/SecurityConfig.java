@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -27,6 +26,9 @@ import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
 import com.gpyeong.core.global.security.ExcludeAuthPathProperties;
 import com.gpyeong.core.global.security.JwtAuthenticationFilter;
 import com.gpyeong.core.global.security.TokenProvider;
+import com.gpyeong.core.global.security.oauth.handler.OAuth2AuthenticationFailureHandler;
+import com.gpyeong.core.global.security.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.gpyeong.core.global.security.oauth.service.CustomOAuth2UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,11 @@ public class SecurityConfig {
 	private final RefreshTokenService refreshTokenService;
 	private final TokenWhitelistService tokenWhitelistService;
 	private final CorsProperties corsProperties;
+	
+	// OAuth2
+	private final CustomOAuth2UserService customOAuth2UserService;
+	private final OAuth2AuthenticationSuccessHandler oAuth2SuccessHandler;
+	private final OAuth2AuthenticationFailureHandler oAuth2FailureHandler;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -76,6 +83,12 @@ public class SecurityConfig {
 				.requestMatchers(
 						"/ws/**"  // WebSocket 엔드포인트 (자체 JWT 검증)
 				).permitAll()
+				.requestMatchers(
+						"/oauth2/**",
+						"/login/oauth2/**",
+						"/api/users/login/google", // 구글 로그인 시작
+						"/api/users/login/success" // 로그인 성공 확인 (테스트용)
+				).permitAll()
 				.requestMatchers(HttpMethod.POST, "/users/token").authenticated() // 토큰 재발급
 				// Authenticated
 				.anyRequest().authenticated()
@@ -83,6 +96,15 @@ public class SecurityConfig {
 
 		// Session 해제
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		// OAuth2 로그인 설정
+		http.oauth2Login(oauth2 -> oauth2
+				.userInfoEndpoint(userInfo -> userInfo
+						.userService(customOAuth2UserService)
+				)
+				.successHandler(oAuth2SuccessHandler)
+				.failureHandler(oAuth2FailureHandler)
+		);
 
 		// Jwt 커스텀 필터 등록
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -120,11 +142,6 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(tokenProvider, excludeAuthPathProperties, refreshTokenService, tokenWhitelistService);
-    }
-    
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     private void writeUnauthorizedResponse(HttpServletResponse response) throws IOException {

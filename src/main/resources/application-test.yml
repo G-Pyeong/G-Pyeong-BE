@@ -2,6 +2,13 @@ spring:
   config:
     activate:
       on-profile: test
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: dummy-client-id
+            client-secret: dummy-client-secret
   data:
     redis:
       host: localhost
@@ -13,13 +20,25 @@ spring:
   
   mongodb:
     embedded:
-      version: 5.0.14
+      version: 4.4.26
+
+  mail:
+    host: localhost
+    port: 1025
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 de:
   flapdoodle:
     mongodb:
       embedded:
-        version: 5.0.14
+        version: 4.4.26
 
 
 jwt:
@@ -28,3 +47,11 @@ jwt:
     expiration: 3600000
   refresh:
     expiration: 604800000
+
+app:
+  auth:
+    redirect-url: http://localhost:8080/test-callback
+    allowed-email-domain: gachon.ac.kr
+
+email:
+  from: test@gachon.ac.kr

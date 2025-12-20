@@ -26,16 +26,23 @@ public class User extends BaseEntity {
     @Indexed(unique = true)
     private String email;
     
-    private String password;
+    private String providerId;
     
-    private String birth;
+    private OAuthProvider provider;
     
-    public void updateProfile(String name, String birth, String encodedNewPassword) {
+    private Integer universityId;
+    
+    private String department;
+    
+    private Integer yearId;
+    
+    private GradeId gradeId;
+    
+    public void updateProfile(String name, String department, Integer yearId, GradeId gradeId) {
         this.name = name;
-        this.birth = birth;
-        if (encodedNewPassword != null && !encodedNewPassword.isBlank()) {
-            this.password = encodedNewPassword;
-        }
+        this.department = department;
+        this.yearId = yearId;
+        this.gradeId = gradeId;
     }
 }
 

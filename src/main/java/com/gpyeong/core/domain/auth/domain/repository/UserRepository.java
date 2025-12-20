@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import com.gpyeong.core.domain.auth.domain.entity.OAuthProvider;
 import com.gpyeong.core.domain.auth.domain.entity.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
@@ -15,4 +16,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     Boolean existsByUserId(String userId);
     
     Optional<User> findByUserId(String userId);
+    
+    Optional<User> findByProviderIdAndProvider(String providerId, OAuthProvider provider);
 }
