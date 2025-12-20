@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gpyeong.core.domain.auth.application.dto.request.EmailRequest;
 import com.gpyeong.core.domain.auth.application.dto.request.EmailVerificationRequest;
-import com.gpyeong.core.domain.auth.application.usecase.UserAuthUseCase;
 import com.gpyeong.core.domain.auth.domain.service.EmailVerificationService;
 import com.gpyeong.core.domain.auth.domain.service.TokenBlacklistService;
 import com.gpyeong.core.global.interceptor.JwtBlacklistInterceptor;
@@ -18,9 +17,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(EmailController.class)
@@ -32,24 +31,19 @@ class EmailControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private EmailVerificationService emailVerificationService;
-    
-    // AuthController가 아니라서 UserAuthUseCase는 필요없을 수 있으나 
-    // SecurityConfig 등에서 빈을 필요로 할 수 있어 안전하게 Mock
-    @MockBean
-    private UserAuthUseCase userAuthUseCase;
 
-    @MockBean
+    @MockitoBean
     private TokenProvider tokenProvider;
 
-    @MockBean
+    @MockitoBean
     private TokenBlacklistService tokenBlacklistService;
     
-    @MockBean
+    @MockitoBean
     private ExcludeBlacklistPathProperties excludeBlacklistPathProperties;
 
-    @MockBean
+    @MockitoBean
     private JwtBlacklistInterceptor jwtBlacklistInterceptor; 
 
     @Test
