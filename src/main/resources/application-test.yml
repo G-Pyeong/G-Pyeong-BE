@@ -13,7 +13,7 @@ spring:
   
   mongodb:
     embedded:
-      version: 5.0.14
+      version: 4.4.26
 
   mail:
     host: localhost
@@ -31,7 +31,7 @@ de:
   flapdoodle:
     mongodb:
       embedded:
-        version: 5.0.14
+        version: 4.4.26
 
 
 jwt:
