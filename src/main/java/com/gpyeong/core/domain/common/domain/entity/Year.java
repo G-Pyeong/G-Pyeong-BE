@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "년도")
+@Document(collection = "years")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +16,7 @@ import javax.persistence.*;
 public class Year extends BaseEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "year_id")
     private Long yearId;
     
-    @Column(name = "year_name")
     private Integer yearName;
 }

@@ -1,16 +1,14 @@
 package com.gpyeong.core.domain.timetable.domain.entity;
 
 import com.gpyeong.core.global.common.BaseEntity;
-import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "시간표에_속한_과목")
+@Document(collection = "timetable_items")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,22 +16,9 @@ import javax.persistence.*;
 public class TimetableItem extends BaseEntity {
     
     @Id
-    @Column(name = "timetable_item_id", length = 255)
     private String timetableItemId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "timetable_id", nullable = false)
-    private Timetable timetable;
+    private String timetableId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
-    
-    public void setTimetable(Timetable timetable) {
-        this.timetable = timetable;
-    }
-    
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
+    private Long subjectId;
 }

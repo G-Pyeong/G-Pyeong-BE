@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "학과")
+@Document(collection = "departments")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,26 +19,11 @@ import java.util.List;
 public class Department extends BaseEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "department_id")
     private Long departmentId;
     
-    @Column(name = "name", nullable = false, length = 100)
     private String name;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "university_id", nullable = false)
-    private University university;
+    private Long universityId;
     
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Member> members = new ArrayList<>();
-    
-    public void setUniversity(University university) {
-        this.university = university;
-    }
-    
-    public void addMember(Member member) {
-        members.add(member);
-        member.setDepartment(this);
-    }
+    private List<String> memberIds = new ArrayList<>();
 }

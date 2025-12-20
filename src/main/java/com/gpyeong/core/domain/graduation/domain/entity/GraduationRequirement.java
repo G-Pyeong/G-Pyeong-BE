@@ -1,20 +1,17 @@
 package com.gpyeong.core.domain.graduation.domain.entity;
 
 import com.gpyeong.core.global.common.BaseEntity;
-import com.gpyeong.core.domain.curriculum.domain.entity.SubjectCategory;
-import com.gpyeong.core.domain.member.domain.entity.Department;
-import com.gpyeong.core.domain.common.domain.entity.Year;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "졸업요건")
+@Document(collection = "graduation_requirements")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,45 +19,17 @@ import java.util.List;
 public class GraduationRequirement extends BaseEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "requirement_id")
     private Long requirementId;
     
-    @Column(name = "min_credit")
     private Integer minCredit;
     
-    @Column(name = "min_course_count")
     private Integer minCourseCount;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    private SubjectCategory subjectCategory;
+    private Long categoryId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "year_id", nullable = false)
-    private Year year;
+    private Long yearId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+    private Long departmentId;
     
-    @OneToMany(mappedBy = "requirement", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RequiredSubject> requiredSubjects = new ArrayList<>();
-    
-    public void setSubjectCategory(SubjectCategory subjectCategory) {
-        this.subjectCategory = subjectCategory;
-    }
-    
-    public void setYear(Year year) {
-        this.year = year;
-    }
-    
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-    
-    public void addRequiredSubject(RequiredSubject requiredSubject) {
-        requiredSubjects.add(requiredSubject);
-        requiredSubject.setRequirement(this);
-    }
+    private List<String> requiredSubjectIds = new ArrayList<>();
 }

@@ -1,7 +1,7 @@
 package com.gpyeong.core.domain.member.domain.repository;
 
 import com.gpyeong.core.domain.member.domain.entity.Department;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+public interface DepartmentRepository extends MongoRepository<Department, Long> {
 }
