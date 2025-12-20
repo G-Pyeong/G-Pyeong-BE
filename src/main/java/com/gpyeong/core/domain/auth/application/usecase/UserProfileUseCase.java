@@ -20,7 +20,10 @@ public class UserProfileUseCase {
 				profileDto.userId(),
 				profileDto.email(),
 				profileDto.name(),
-				profileDto.birth()
+				profileDto.universityId(),
+				profileDto.department(),
+				profileDto.yearId(),
+				profileDto.gradeId()
 		);
 	}
 }

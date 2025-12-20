@@ -13,4 +13,9 @@ public class RestApiException extends RuntimeException {
     public BaseCode getErrorCode() {
         return this.errorCode.getCode();
     }
+
+    @Override
+    public String getMessage() {
+        return this.errorCode.getCode().getMessage();
+    }
 }

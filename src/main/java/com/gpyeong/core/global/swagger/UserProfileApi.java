@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * 사용자 프로필 관리 API 인터페이스 (UserController용)
  */
 @Tag(name = "사용자 프로필", description = "사용자 프로필 조회 및 수정 API")
-public interface UserProfileApi extends BaseApi {
+public interface UserProfileApi {
     
     @Operation(
         summary = "프로필 조회",
