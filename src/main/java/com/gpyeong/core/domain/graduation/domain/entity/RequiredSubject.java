@@ -24,7 +24,7 @@ public class RequiredSubject extends BaseEntity {
     
     private Long requirementId;
     
-    private Long subjectId;
+    private String subjectId;
     
     private EssentialTypeEnum essentialType;
 }
