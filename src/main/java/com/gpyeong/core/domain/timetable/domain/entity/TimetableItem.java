@@ -20,5 +20,5 @@ public class TimetableItem extends BaseEntity {
     
     private String timetableId;
     
-    private Long subjectId;
+    private String subjectId;
 }
