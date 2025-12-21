@@ -24,13 +24,14 @@ public class Timetable extends BaseEntity {
     
     private String memberId;
     
-    private Long yearId;
+    private String yearId;
     
     private SemesterEnum semester;
     
-    private Integer summary;
+    private String summary;
     
     private Integer totalCredit;
     
+    @Builder.Default
     private List<String> timetableItemIds = new ArrayList<>();
 }

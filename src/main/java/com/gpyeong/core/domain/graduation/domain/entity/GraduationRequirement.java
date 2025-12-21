@@ -19,17 +19,18 @@ import java.util.List;
 public class GraduationRequirement extends BaseEntity {
     
     @Id
-    private Long requirementId;
+    private String requirementId;
     
     private Integer minCredit;
     
     private Integer minCourseCount;
     
-    private Long categoryId;
+    private String categoryId;
     
-    private Long yearId;
+    private String yearId;
     
-    private Long departmentId;
+    private String departmentId;
     
+    @Builder.Default
     private List<String> requiredSubjectIds = new ArrayList<>();
 }

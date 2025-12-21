@@ -19,13 +19,15 @@ import java.util.List;
 public class SubjectCategory extends BaseEntity {
     
     @Id
-    private Long categoryId;
+    private String categoryId;
     
     private String name;
     
-    private Long parentCategoryId;
+    private String parentCategoryId;
     
-    private List<Long> childCategoryIds = new ArrayList<>();
+    @Builder.Default
+    private List<String> childCategoryIds = new ArrayList<>();
     
-    private List<Long> subjectIds = new ArrayList<>();
+    @Builder.Default
+    private List<String> subjectIds = new ArrayList<>();
 }

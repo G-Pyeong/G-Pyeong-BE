@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * 학년도 정보를 나타내는 엔티티
+ * yearId: MongoDB 내부 ID (1, 2, 3...)
+ * yearName: 실제 연도 (2024, 2025...)
+ */
 @Document(collection = "years")
 @Getter
 @AllArgsConstructor
@@ -16,7 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Year extends BaseEntity {
     
     @Id
-    private Long yearId;
+    private String yearId;
     
     private Integer yearName;
 }

@@ -20,19 +20,21 @@ import java.util.List;
 public class Subject extends BaseEntity {
     
     @Id
-    private Long subjectId;
+    private String subjectId;
     
     private String name;
     
     private Integer credit;
     
-    private Long departmentId;
+    private String departmentId;
     
     private SemesterEnum semester;
     
-    private Long categoryId;
+    private String categoryId;
     
+    @Builder.Default
     private List<String> requiredSubjectIds = new ArrayList<>();
     
+    @Builder.Default
     private List<String> timetableItemIds = new ArrayList<>();
 }

@@ -19,8 +19,12 @@ import java.util.List;
 public class University extends BaseEntity {
     
     @Id
-    private Long universityId;
+    private String universityId;
+
+    private String universityName;
     
-    private List<Long> departmentIds = new ArrayList<>();
+    @Builder.Default
+    private List<String> departmentIds = new ArrayList<>();
+    @Builder.Default
     private List<String> memberIds = new ArrayList<>();
 }

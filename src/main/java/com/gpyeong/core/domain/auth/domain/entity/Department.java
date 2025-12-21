@@ -19,11 +19,12 @@ import java.util.List;
 public class Department extends BaseEntity {
     
     @Id
-    private Long departmentId;
+    private String departmentId;
     
     private String name;
     
-    private Long universityId;
-    
+    private String universityId;
+
+    @Builder.Default
     private List<String> memberIds = new ArrayList<>();
 }
