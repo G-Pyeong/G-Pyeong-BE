@@ -20,7 +20,7 @@ public class MongoDbInitializer implements CommandLineRunner {
         
         // Create collections
         createCollectionIfNotExists("years");
-        createCollectionIfNotExists("members");
+        createCollectionIfNotExists("users");
         createCollectionIfNotExists("universities");
         createCollectionIfNotExists("departments");
         createCollectionIfNotExists("subjects");
