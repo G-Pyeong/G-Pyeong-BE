@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.gpyeong.core.global.common.BaseEntity;
+import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class User extends BaseEntity {
     
     @Id
-    private String userId;
+    private Integer userId;
     
     private String name;
     
@@ -36,13 +37,13 @@ public class User extends BaseEntity {
     
     private Integer yearId;
     
-    private GradeId gradeId;
+    private GradeEnum grade;
     
-    public void updateProfile(String name, String department, Integer yearId, GradeId gradeId) {
+    public void updateProfile(String name, String department, Integer yearId, GradeEnum grade) {
         this.name = name;
         this.department = department;
         this.yearId = yearId;
-        this.gradeId = gradeId;
+        this.grade = grade;
     }
 }
 

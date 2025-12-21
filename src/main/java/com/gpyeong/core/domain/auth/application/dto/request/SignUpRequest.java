@@ -1,6 +1,6 @@
 package com.gpyeong.core.domain.auth.application.dto.request;
 
-import com.gpyeong.core.domain.auth.domain.entity.GradeId;
+import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,5 +20,5 @@ public record SignUpRequest(
         Integer yearId,
 
         @NotNull(message = "학년은 필수입니다.")
-        GradeId gradeId
+        GradeEnum grade
 ) {}

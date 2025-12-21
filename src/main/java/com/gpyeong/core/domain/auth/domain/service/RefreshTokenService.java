@@ -13,18 +13,18 @@ public class RefreshTokenService {
 	private static final String refreshTokenPrefix = "REFRESH_TOKEN:";
 	private final RedisTemplate<String, String> redisTemplate;
 
-	public void saveRefreshToken(String userId, String refreshToken, Duration timeout) {
+	public void saveRefreshToken(Integer userId, String refreshToken, Duration timeout) {
 		redisTemplate.opsForValue().set(refreshTokenPrefix + userId, refreshToken, timeout);
 	}
 
-	public void deleteRefreshToken(String userId) {
+	public void deleteRefreshToken(Integer userId) {
 		redisTemplate.delete(refreshTokenPrefix + userId);
 	}
 
-	public String findByUserId(String userId) {
+	public String findByUserId(Integer userId) {
 		return redisTemplate.opsForValue().get(refreshTokenPrefix + userId);
 	}
-	public boolean isExist(String token, String userId) {
+	public boolean isExist(String token, Integer userId) {
 		String savedToken = redisTemplate.opsForValue().get(refreshTokenPrefix + userId);
 		boolean exists = savedToken != null && Objects.equals(savedToken, token);
 

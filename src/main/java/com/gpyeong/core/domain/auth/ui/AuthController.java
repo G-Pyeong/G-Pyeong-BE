@@ -57,7 +57,7 @@ public class AuthController implements AuthApi, OnboardingApi {
 	@PostMapping("/onboarding")
 	@Override
 	public BaseResponse<Void> completeOnboarding(
-			@CurrentUser String userId,
+			@CurrentUser Integer userId,
 			@Valid @RequestBody SignUpRequest request) {
 		userService.completeOnboarding(userId, request);
 		return BaseResponse.onSuccess();

@@ -13,7 +13,7 @@ public class UserProfileUseCase {
 
 	private final UserService userService;
 
-	public ProfileResponse findProfile(String userId) {
+	public ProfileResponse findProfile(Integer userId) {
 		ProfileResponse profileDto = userService.findProfile(userId);
 
 		return new ProfileResponse(
@@ -23,7 +23,7 @@ public class UserProfileUseCase {
 				profileDto.universityId(),
 				profileDto.department(),
 				profileDto.yearId(),
-				profileDto.gradeId()
+				profileDto.grade()
 		);
 	}
 }

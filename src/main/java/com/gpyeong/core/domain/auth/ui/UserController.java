@@ -27,7 +27,7 @@ public class UserController implements UserProfileApi {
 	@GetMapping("/profile")
 	@Override
 	public BaseResponse<ProfileResponse> getProfile(
-			@Parameter(hidden = true) @CurrentUser String userId) {
+			@Parameter(hidden = true) @CurrentUser Integer userId) {
 		ProfileResponse profile = userProfileUseCase.findProfile(userId);
 		return BaseResponse.onSuccess(profile);
 	}
@@ -35,7 +35,7 @@ public class UserController implements UserProfileApi {
 	@PatchMapping("/profile")
 	@Override
 	public BaseResponse<ProfileResponse> updateProfile(
-			@Parameter(hidden = true) @CurrentUser String userId,
+			@Parameter(hidden = true) @CurrentUser Integer userId,
 			@Valid @RequestBody UpdateProfileRequest request) {
 		ProfileResponse updated = updateProfileUseCase.update(userId, request);
 		return BaseResponse.onSuccess(updated);

@@ -21,7 +21,7 @@ public class UserService {
 				.orElseThrow(() -> new RestApiException(_NOT_FOUND));
 	}
 	
-	public User findByUserId(String userId) {
+	public User findByUserId(Integer userId) {
 		return userRepository.findByUserId(userId)
 				.orElseThrow(() -> new RestApiException(_NOT_FOUND));
 	}
@@ -30,14 +30,14 @@ public class UserService {
 		return userRepository.existsByEmail(email);
 	}
 	
-	public boolean isUserIdAlreadyRegistered(String userId) {
+	public boolean isUserIdAlreadyRegistered(Integer userId) {
 		return userRepository.existsByUserId(userId);
 	}
 
 	/**
 	 * 온보딩 완료 - OAuth 로그인 이후 사용자 추가 정보 업데이트
 	 */
-	public User completeOnboarding(String userId, SignUpRequest request) {
+	public User completeOnboarding(Integer userId, SignUpRequest request) {
 		User user = findByUserId(userId);
 		
 		// 온보딩 정보 업데이트
@@ -50,18 +50,18 @@ public class UserService {
 				.universityId(request.universityId())
 				.department(request.department())
 				.yearId(request.yearId())
-				.gradeId(request.gradeId())
+				.grade(request.grade())
 				.build();
 		
 		return userRepository.save(user);
 	}
 
-	public User findUser(String userId) {
+	public User findUser(Integer userId) {
 		return userRepository.findByUserId(userId)
 				.orElseThrow(() -> new RestApiException(_NOT_FOUND));
 	}
 
-	public ProfileResponse findProfile(String userId) {
+	public ProfileResponse findProfile(Integer userId) {
 		User user = userRepository.findByUserId(userId)
 				.orElseThrow(() -> new RestApiException(_NOT_FOUND));
 		return ProfileResponse.create(user);

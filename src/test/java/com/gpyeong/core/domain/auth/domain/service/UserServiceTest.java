@@ -6,10 +6,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
-import com.gpyeong.core.domain.auth.domain.entity.GradeId;
 import com.gpyeong.core.domain.auth.domain.entity.OAuthProvider;
 import com.gpyeong.core.domain.auth.domain.entity.User;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
+import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ class UserServiceTest {
     void completeOnboarding() {
         // given
         User existingUser = User.builder()
-                .userId("testuser")
+                .userId(1)
                 .email("test@gachon.ac.kr")
                 .name("Google Name")
                 .providerId("google-12345")
@@ -43,23 +43,23 @@ class UserServiceTest {
                 "컴퓨터공학과",
                 1,
                 2021,
-                GradeId.THIRD
+                GradeEnum.THIRD
         );
 
-        given(userRepository.findByUserId("testuser"))
+        given(userRepository.findByUserId(1))
                 .willReturn(java.util.Optional.of(existingUser));
         given(userRepository.save(any(User.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        User updatedUser = userService.completeOnboarding("testuser", request);
+        User updatedUser = userService.completeOnboarding(1, request);
 
         // then
         assertThat(updatedUser.getName()).isEqualTo("홍길동");
         assertThat(updatedUser.getUniversityId()).isEqualTo(1);
         assertThat(updatedUser.getDepartment()).isEqualTo("컴퓨터공학과");
         assertThat(updatedUser.getYearId()).isEqualTo(2021);
-        assertThat(updatedUser.getGradeId()).isEqualTo(GradeId.THIRD);
+        assertThat(updatedUser.getGrade()).isEqualTo(GradeEnum.THIRD);
         assertThat(updatedUser.getProviderId()).isEqualTo("google-12345");
         assertThat(updatedUser.getProvider()).isEqualTo(OAuthProvider.GOOGLE);
 
