@@ -21,7 +21,7 @@ public class University extends BaseEntity {
     @Id
     private String universityId;
 
-    private String universityName;
+    private String name;
     
     @Builder.Default
     private List<String> departmentIds = new ArrayList<>();
