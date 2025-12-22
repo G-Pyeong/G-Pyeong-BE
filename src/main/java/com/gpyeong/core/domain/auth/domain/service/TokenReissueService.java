@@ -21,7 +21,7 @@ public class TokenReissueService {
 	private final RefreshTokenService refreshTokenService;
 	private final UserService userService;
 
-	public TokenReissueResponse reissue(String refreshToken, String userId) {
+	public TokenReissueResponse reissue(String refreshToken, Integer userId) {
 
 		// 존재 유무 검사
 		if (!refreshTokenService.isExist(refreshToken, userId)) {

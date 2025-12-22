@@ -36,7 +36,7 @@ public class TokenProvider {
     private static final String ROLE_CLAIM = "role";
 
 
-    public String createAccessToken(String id, String role) {
+    public String createAccessToken(Integer id, String role) {
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -48,17 +48,17 @@ public class TokenProvider {
                                 .toInstant()
                 ))
                 .setSubject(ACCESS_TOKEN_SUBJECT)
-                .claim(ID_CLAIM, id)
+                .claim(ID_CLAIM, id.toString())
                 .claim(ROLE_CLAIM, role)
                 .signWith(Keys.hmacShaKeyFor(jwtProperties.getKey().getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String createAccessToken(String id) {
+    public String createAccessToken(Integer id) {
         return createAccessToken(id, "USER");
     }
 
-    public String createRefreshToken(String id) {
+    public String createRefreshToken(Integer id) {
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -70,7 +70,7 @@ public class TokenProvider {
                                 .toInstant()
                 ))
                 .setSubject(REFRESH_TOKEN_SUBJECT)
-                .claim(ID_CLAIM, id)
+                .claim(ID_CLAIM, id.toString())
                 .signWith(Keys.hmacShaKeyFor(jwtProperties.getKey().getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -89,12 +89,12 @@ public class TokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
         // 권한 없이 인증된 사용자로만 처리
-        return new UsernamePasswordAuthenticationToken(claims.get(ID_CLAIM, String.class), "", Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(Integer.parseInt(claims.get(ID_CLAIM, String.class)), "", Collections.emptyList());
     }
 
-    public Optional<String> getId(String token) {
+    public Optional<Integer> getId(String token) {
         try {
-            return Optional.ofNullable(getClaims(token).get(ID_CLAIM, String.class));
+            return Optional.ofNullable(Integer.parseInt(getClaims(token).get(ID_CLAIM, String.class)));
         } catch (Exception e) {
             return Optional.empty();
         }

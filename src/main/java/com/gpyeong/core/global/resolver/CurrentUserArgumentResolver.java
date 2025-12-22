@@ -21,15 +21,15 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean supported = parameter.getParameterAnnotation(CurrentUser.class) != null
-                && String.class.isAssignableFrom(parameter.getParameterType());
+                && Integer.class.isAssignableFrom(parameter.getParameterType());
         return supported;
     }
 
     @Override
-    public String resolveArgument(MethodParameter parameter,
-                                  ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest,
-                                  WebDataBinderFactory binderFactory) throws Exception {
+    public Integer resolveArgument(MethodParameter parameter,
+                                   ModelAndViewContainer mavContainer,
+                                   NativeWebRequest webRequest,
+                                   WebDataBinderFactory binderFactory) throws Exception {
 
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 
@@ -42,7 +42,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
                     return new RestApiException(_UNAUTHORIZED);
                 });
 
-        String userId = tokenProvider.getId(token)
+        Integer userId = tokenProvider.getId(token)
                 .orElseThrow(() -> {
                     return new RestApiException(_UNAUTHORIZED);
                 });

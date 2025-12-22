@@ -15,9 +15,9 @@ public class UpdateProfileUseCase {
 
 	private final UserService userService;
 
-	public ProfileResponse update(String userId, UpdateProfileRequest request) {
+	public ProfileResponse update(Integer userId, UpdateProfileRequest request) {
 		User user = userService.findUser(userId);
-		user.updateProfile(request.name(), request.department(), request.yearId(), request.gradeId());
+		user.updateProfile(request.name(), request.department(), request.yearId(), request.grade());
 		return ProfileResponse.create(user);
 	}
 }

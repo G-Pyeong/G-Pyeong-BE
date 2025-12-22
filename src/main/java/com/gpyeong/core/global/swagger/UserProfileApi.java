@@ -37,7 +37,7 @@ public interface UserProfileApi {
             content = @Content(schema = @Schema(implementation = BaseResponse.class))
         )
     })
-    BaseResponse<ProfileResponse> getProfile(String userId);
+    BaseResponse<ProfileResponse> getProfile(Integer userId);
     
     @Operation(
         summary = "프로필 수정",
@@ -65,5 +65,5 @@ public interface UserProfileApi {
             content = @Content(schema = @Schema(implementation = BaseResponse.class))
         )
     })
-    BaseResponse<ProfileResponse> updateProfile(String userId, UpdateProfileRequest request);
+    BaseResponse<ProfileResponse> updateProfile(Integer userId, UpdateProfileRequest request);
 }

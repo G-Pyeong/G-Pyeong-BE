@@ -1,5 +1,7 @@
 package com.gpyeong.core.domain.auth.domain.entity;
 
+import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +14,7 @@ class UserTest {
     void updateProfile() {
         // given
         User user = User.builder()
-                .userId("testuser")
+                .userId(1)
                 .email("test@gachon.ac.kr")
                 .name("홍길동")
                 .providerId("google-12345")
@@ -20,22 +22,22 @@ class UserTest {
                 .universityId(1)
                 .department("소프트웨어학과")
                 .yearId(2021)
-                .gradeId(GradeId.THIRD)
+                .grade(GradeEnum.THIRD)
                 .build();
 
         String newName = "홍길순";
         String newDepartment = "인공지능학과";
         Integer newYearId = 2022;
-        GradeId newGradeId = GradeId.SECOND;
+        GradeEnum newGrade = GradeEnum.SECOND;
 
         // when
-        user.updateProfile(newName, newDepartment, newYearId, newGradeId);
+        user.updateProfile(newName, newDepartment, newYearId, newGrade);
 
         // then
         assertThat(user.getName()).isEqualTo(newName);
         assertThat(user.getDepartment()).isEqualTo(newDepartment);
         assertThat(user.getYearId()).isEqualTo(newYearId);
-        assertThat(user.getGradeId()).isEqualTo(newGradeId);
+        assertThat(user.getGrade()).isEqualTo(newGrade);
     }
 
     @Test
@@ -43,7 +45,7 @@ class UserTest {
     void createOAuthUser() {
         // given & when
         User user = User.builder()
-                .userId("testuser")
+                .userId(1)
                 .email("test@gachon.ac.kr")
                 .name("홍길동")
                 .providerId("google-12345")
@@ -55,6 +57,6 @@ class UserTest {
         assertThat(user.getProviderId()).isEqualTo("google-12345");
         assertThat(user.getProvider()).isEqualTo(OAuthProvider.GOOGLE);
         assertThat(user.getUniversityId()).isNull(); // 온보딩 전
-        assertThat(user.getGradeId()).isNull(); // 온보딩 전
+        assertThat(user.getGrade()).isNull(); // 온보딩 전
     }
 }

@@ -36,5 +36,5 @@ public interface OnboardingApi {
             content = @Content(schema = @Schema(implementation = BaseResponse.class))
         )
     })
-    BaseResponse<Void> completeOnboarding(String userId, SignUpRequest request);
+    BaseResponse<Void> completeOnboarding(Integer userId, SignUpRequest request);
 }

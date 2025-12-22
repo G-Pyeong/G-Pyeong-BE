@@ -43,7 +43,7 @@ public class TokenUseCase {
 		}
 		
 		// userId 추출
-		String userId = tokenProvider.getId(refreshToken)
+		Integer userId = tokenProvider.getId(refreshToken)
 				.orElseThrow(() -> new RestApiException(GlobalErrorStatus._UNAUTHORIZED));
 		
 		// 저장된 Refresh Token과 비교
