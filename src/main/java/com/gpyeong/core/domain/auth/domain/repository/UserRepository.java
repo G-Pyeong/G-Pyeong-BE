@@ -1,6 +1,8 @@
 package com.gpyeong.core.domain.auth.domain.repository;
 
 import java.util.Optional;
+import java.util.List;
+import com.gpyeong.core.domain.auth.domain.entity.Gender;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -16,6 +18,8 @@ public interface UserRepository extends MongoRepository<User, Integer> {
     Boolean existsByUserId(Integer userId);
     
     Optional<User> findByUserId(Integer userId);
+
+    List<User> findAllByGender(Gender gender);
     
     Optional<User> findByProviderIdAndProvider(String providerId, OAuthProvider provider);
 }

@@ -19,7 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class User extends BaseEntity {
     
+    // 유저 시퀀스 관리를 위한 이름
+    public static final String SEQUENCE_NAME = "users_sequence";
+
     @Id
+    @lombok.Setter
     private Integer userId;
     
     private String name;
