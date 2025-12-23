@@ -5,6 +5,7 @@ import static com.gpyeong.core.global.exception.code.status.GlobalErrorStatus._N
 import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
 import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
 import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.entity.Gender;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
 import com.gpyeong.core.global.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,7 @@ public class UserService {
 				.department(request.department())
 				.yearId(request.yearId())
 				.grade(request.grade())
+				.gender(request.gender())
 				.build();
 		
 		return userRepository.save(user);

@@ -23,21 +23,24 @@ class UserTest {
                 .department("소프트웨어학과")
                 .yearId(2021)
                 .grade(GradeEnum.THIRD)
+                .gender(Gender.MALE)
                 .build();
 
         String newName = "홍길순";
         String newDepartment = "인공지능학과";
         Integer newYearId = 2022;
         GradeEnum newGrade = GradeEnum.SECOND;
+        Gender newGender = Gender.FEMALE;
 
         // when
-        user.updateProfile(newName, newDepartment, newYearId, newGrade);
+        user.updateProfile(newName, newDepartment, newYearId, newGrade, newGender);
 
         // then
         assertThat(user.getName()).isEqualTo(newName);
         assertThat(user.getDepartment()).isEqualTo(newDepartment);
         assertThat(user.getYearId()).isEqualTo(newYearId);
         assertThat(user.getGrade()).isEqualTo(newGrade);
+        assertThat(user.getGender()).isEqualTo(newGender);
     }
 
     @Test
@@ -58,5 +61,6 @@ class UserTest {
         assertThat(user.getProvider()).isEqualTo(OAuthProvider.GOOGLE);
         assertThat(user.getUniversityId()).isNull(); // 온보딩 전
         assertThat(user.getGrade()).isNull(); // 온보딩 전
+        assertThat(user.getGender()).isNull(); // 온보딩 전
     }
 }
