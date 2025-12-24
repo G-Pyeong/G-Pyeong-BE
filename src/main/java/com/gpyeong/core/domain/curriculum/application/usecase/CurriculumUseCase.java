@@ -1,7 +1,7 @@
 package com.gpyeong.core.domain.curriculum.application.usecase;
 
-import com.gpyeong.core.domain.curriculum.domain.entity.Section;
-import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
+import com.gpyeong.core.domain.curriculum.application.dto.response.SectionResponse;
+import com.gpyeong.core.domain.curriculum.application.dto.response.SubjectResponse;
 import com.gpyeong.core.domain.curriculum.domain.service.CurriculumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,15 @@ public class CurriculumUseCase {
 
     private final CurriculumService curriculumService;
 
-    public List<Subject> getAllSubjects() {
-        return curriculumService.findAllSubjects();
+    public List<SubjectResponse> getAllSubjects() {
+        return curriculumService.findAllSubjects().stream()
+                .map(SubjectResponse::from)
+                .toList();
     }
 
-    public List<Section> getSectionsBySubject(String subjectId) {
-        return curriculumService.findSectionsBySubjectId(subjectId);
+    public List<SectionResponse> getSectionsBySubject(String subjectId) {
+        return curriculumService.findSectionsBySubjectId(subjectId).stream()
+                .map(SectionResponse::from)
+                .toList();
     }
 }
