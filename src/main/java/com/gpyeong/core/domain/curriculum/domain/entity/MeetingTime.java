@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class MeetingTime {
-    private String dayOfWeek; // MON, TUE, WED ....
+    private DayOfWeek dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public static MeetingTime of(String dayOfWeek, LocalTime startTime, LocalTime endTime) {
+    public static MeetingTime of(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
         return new MeetingTime(
                 dayOfWeek,
                 startTime,

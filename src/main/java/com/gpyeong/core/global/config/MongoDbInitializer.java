@@ -2,6 +2,7 @@ package com.gpyeong.core.global.config;
 
 import com.gpyeong.core.domain.common.domain.entity.SemesterEnum;
 import com.gpyeong.core.domain.curriculum.domain.entity.MeetingTime;
+import com.gpyeong.core.domain.curriculum.domain.entity.DayOfWeek;
 import com.gpyeong.core.domain.curriculum.domain.entity.Section;
 import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
 import com.gpyeong.core.domain.curriculum.domain.repository.SectionRepository;
@@ -71,8 +72,8 @@ public class MongoDbInitializer implements CommandLineRunner {
                     .yearId("2024")
                     .semester(SemesterEnum.FIRST_SEMESTER)
                     .meetingTimes(List.of(
-                            MeetingTime.of("MON", LocalTime.parse("09:00"), LocalTime.parse("10:30")),
-                            MeetingTime.of("WED", LocalTime.parse("09:00"), LocalTime.parse("10:30"))))
+                            MeetingTime.of(DayOfWeek.MON, LocalTime.parse("09:00"), LocalTime.parse("10:30")),
+                            MeetingTime.of(DayOfWeek.WED, LocalTime.parse("09:00"), LocalTime.parse("10:30"))))
                     .build();
 
             sectionRepository.save(osSection);
