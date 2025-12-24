@@ -13,6 +13,7 @@ import com.gpyeong.core.domain.auth.domain.entity.User;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
 import com.gpyeong.core.global.security.oauth.factory.SocialPrincipalFactory;
 import com.gpyeong.core.global.security.oauth.principal.SocialPrincipal;
+import com.gpyeong.core.global.util.SequenceGenerator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	
 	private final SocialPrincipalFactory principalFactory;
 	private final UserRepository userRepository;
+	private final SequenceGenerator sequenceGenerator;
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -51,6 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	
 	private User createNewUser(SocialPrincipal principal) {
 		User user = User.builder()
+			.userId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME)) // ID를 직접 시퀀스에서 받아와 설정
 			.email(principal.getEmail())
 			.name(principal.getName())
 			.providerId(principal.getProviderId())

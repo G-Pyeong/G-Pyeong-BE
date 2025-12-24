@@ -19,7 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class User extends BaseEntity {
     
+    // 유저 시퀀스 관리를 위한 이름
+    public static final String SEQUENCE_NAME = "users_sequence";
+
     @Id
+    @lombok.Setter
     private Integer userId;
     
     private String name;
@@ -39,11 +43,14 @@ public class User extends BaseEntity {
     
     private GradeEnum grade;
     
-    public void updateProfile(String name, String department, Integer yearId, GradeEnum grade) {
+    private Gender gender;
+    
+    public void updateProfile(String name, String department, Integer yearId, GradeEnum grade, Gender gender) {
         this.name = name;
         this.department = department;
         this.yearId = yearId;
         this.grade = grade;
+        this.gender = gender;
     }
 }
 

@@ -14,17 +14,7 @@ public class UserProfileUseCase {
 	private final UserService userService;
 
 	public ProfileResponse findProfile(Integer userId) {
-		ProfileResponse profileDto = userService.findProfile(userId);
-
-		return new ProfileResponse(
-				profileDto.userId(),
-				profileDto.email(),
-				profileDto.name(),
-				profileDto.universityId(),
-				profileDto.department(),
-				profileDto.yearId(),
-				profileDto.grade()
-		);
+		return userService.findProfile(userId);
 	}
 }
 

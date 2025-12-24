@@ -2,6 +2,7 @@ package com.gpyeong.core.domain.auth.application.dto.response;
 
 import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
 import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.entity.Gender;
 
 public record ProfileResponse(
 		Integer userId,
@@ -10,7 +11,8 @@ public record ProfileResponse(
 		Integer universityId,
 		String department,
 		Integer yearId,
-		GradeEnum grade
+		GradeEnum grade,
+		Gender gender
 ) {
 	public static ProfileResponse create(User user) {
 		return new ProfileResponse(
@@ -20,7 +22,8 @@ public record ProfileResponse(
 				user.getUniversityId(),
 				user.getDepartment(),
 				user.getYearId(),
-				user.getGrade()
+				user.getGrade(),
+				user.getGender()
 		);
 	}
 }

@@ -3,6 +3,7 @@ package com.gpyeong.core.domain.auth.application.usecase;
 import com.gpyeong.core.domain.auth.application.dto.request.UpdateProfileRequest;
 import com.gpyeong.core.domain.auth.application.dto.response.ProfileResponse;
 import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.entity.Gender;
 import com.gpyeong.core.domain.auth.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class UpdateProfileUseCase {
 
 	public ProfileResponse update(Integer userId, UpdateProfileRequest request) {
 		User user = userService.findUser(userId);
-		user.updateProfile(request.name(), request.department(), request.yearId(), request.grade());
+		user.updateProfile(request.name(), request.department(), request.yearId(), request.grade(), request.gender());
 		return ProfileResponse.create(user);
 	}
 }

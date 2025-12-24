@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import com.gpyeong.core.domain.auth.application.dto.request.SignUpRequest;
 import com.gpyeong.core.domain.auth.domain.entity.OAuthProvider;
 import com.gpyeong.core.domain.auth.domain.entity.User;
+import com.gpyeong.core.domain.auth.domain.entity.Gender;
 import com.gpyeong.core.domain.auth.domain.repository.UserRepository;
 import com.gpyeong.core.domain.common.domain.entity.GradeEnum;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +44,8 @@ class UserServiceTest {
                 "컴퓨터공학과",
                 1,
                 2021,
-                GradeEnum.THIRD
+                GradeEnum.THIRD,
+                Gender.MALE
         );
 
         given(userRepository.findByUserId(1))
@@ -60,6 +62,7 @@ class UserServiceTest {
         assertThat(updatedUser.getDepartment()).isEqualTo("컴퓨터공학과");
         assertThat(updatedUser.getYearId()).isEqualTo(2021);
         assertThat(updatedUser.getGrade()).isEqualTo(GradeEnum.THIRD);
+        assertThat(updatedUser.getGender()).isEqualTo(Gender.MALE);
         assertThat(updatedUser.getProviderId()).isEqualTo("google-12345");
         assertThat(updatedUser.getProvider()).isEqualTo(OAuthProvider.GOOGLE);
 
