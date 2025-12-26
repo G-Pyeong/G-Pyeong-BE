@@ -14,11 +14,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Builder
 public class TimetableItem extends BaseEntity {
-    
+
     @Id
     private String timetableItemId;
-    
+
     private String timetableId;
-    
+
     private String subjectId;
+
+    private String sectionId;
 }

@@ -2,6 +2,8 @@ package com.gpyeong.core.domain.timetable.domain.repository;
 
 import com.gpyeong.core.domain.timetable.domain.entity.TimetableItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import java.util.List;
 
 public interface TimetableItemRepository extends MongoRepository<TimetableItem, String> {
+    List<TimetableItem> findByTimetableId(String timetableId);
 }

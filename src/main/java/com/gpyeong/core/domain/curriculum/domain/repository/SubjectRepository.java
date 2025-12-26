@@ -4,4 +4,5 @@ import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface SubjectRepository extends MongoRepository<Subject, String> {
+    java.util.List<Subject> findByCategoryIdIn(java.util.List<String> categoryIds);
 }
