@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Slf4j
@@ -77,10 +79,8 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.MON, LocalTime.parse("09:00"),
-                                                                        LocalTime.parse("10:30")),
-                                                        MeetingTime.of(DayOfWeek.WED, LocalTime.parse("09:00"),
-                                                                        LocalTime.parse("10:30"))))
+                                                        createMeetingTime(DayOfWeek.MON, "09:00", "10:30"),
+                                                        createMeetingTime(DayOfWeek.WED, "09:00", "10:30")))
                                         .build();
                         sectionRepository.save(osSection1);
 
@@ -91,10 +91,8 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.TUE, LocalTime.parse("13:30"),
-                                                                        LocalTime.parse("15:00")),
-                                                        MeetingTime.of(DayOfWeek.THU, LocalTime.parse("13:30"),
-                                                                        LocalTime.parse("15:00"))))
+                                                        createMeetingTime(DayOfWeek.TUE, "13:30", "15:00"),
+                                                        createMeetingTime(DayOfWeek.THU, "13:30", "15:00")))
                                         .build();
                         sectionRepository.save(osSection2);
 
@@ -115,8 +113,7 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.FRI, LocalTime.parse("10:00"),
-                                                                        LocalTime.parse("13:00"))))
+                                                        createMeetingTime(DayOfWeek.FRI, "10:00", "13:00")))
                                         .build();
                         sectionRepository.save(dbSection);
 
@@ -137,10 +134,8 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.MON, LocalTime.parse("15:00"),
-                                                                        LocalTime.parse("16:30")),
-                                                        MeetingTime.of(DayOfWeek.WED, LocalTime.parse("15:00"),
-                                                                        LocalTime.parse("16:30"))))
+                                                        createMeetingTime(DayOfWeek.MON, "15:00", "16:30"),
+                                                        createMeetingTime(DayOfWeek.WED, "15:00", "16:30")))
                                         .build();
                         sectionRepository.save(algoSection);
 
@@ -161,8 +156,7 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.FRI, LocalTime.parse("14:00"),
-                                                                        LocalTime.parse("16:00"))))
+                                                        createMeetingTime(DayOfWeek.FRI, "14:00", "16:00")))
                                         .build();
                         sectionRepository.save(historySection);
 
@@ -183,12 +177,22 @@ public class MongoDbInitializer implements CommandLineRunner {
                                         .yearId("2024")
                                         .semester(SemesterEnum.FIRST_SEMESTER)
                                         .meetingTimes(List.of(
-                                                        MeetingTime.of(DayOfWeek.TUE, LocalTime.parse("10:00"),
-                                                                        LocalTime.parse("12:00"))))
+                                                        createMeetingTime(DayOfWeek.TUE, "10:00", "12:00")))
                                         .build();
                         sectionRepository.save(artSection);
 
                         log.info("시드 데이터 삽입 완료!");
                 }
+        }
+
+        private MeetingTime createMeetingTime(DayOfWeek day, String startTime, String endTime) {
+                // 2024년 3월 4일(월요일)을 기준으로 요일 계산
+                LocalDate baseDate = LocalDate.of(2024, 3, 4);
+                LocalDate date = baseDate.plusDays(day.ordinal());
+
+                return MeetingTime.of(
+                                day,
+                                date.atTime(LocalTime.parse(startTime)),
+                                date.atTime(LocalTime.parse(endTime)));
         }
 }
