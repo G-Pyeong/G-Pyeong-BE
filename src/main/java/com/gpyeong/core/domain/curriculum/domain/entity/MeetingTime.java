@@ -1,6 +1,6 @@
 package com.gpyeong.core.domain.curriculum.domain.entity;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MeetingTime {
     private DayOfWeek dayOfWeek;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    public static MeetingTime of(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+    public static MeetingTime of(DayOfWeek dayOfWeek, LocalDateTime startTime, LocalDateTime endTime) {
         return new MeetingTime(
                 dayOfWeek,
                 startTime,

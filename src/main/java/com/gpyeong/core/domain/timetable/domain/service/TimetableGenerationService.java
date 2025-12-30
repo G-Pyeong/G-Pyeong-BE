@@ -5,16 +5,24 @@ import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
 import com.gpyeong.core.domain.curriculum.domain.repository.SectionRepository;
 import com.gpyeong.core.domain.curriculum.domain.repository.SubjectRepository;
 import com.gpyeong.core.domain.timetable.application.dto.request.TimetableGenerationRequest;
+import com.gpyeong.core.domain.timetable.domain.entity.Timetable;
+import com.gpyeong.core.domain.timetable.domain.entity.TimetableItem;
+import com.gpyeong.core.domain.timetable.domain.repository.TimetableItemRepository;
+import com.gpyeong.core.domain.timetable.domain.repository.TimetableRepository;
 import com.gpyeong.core.global.exception.RestApiException;
 import com.gpyeong.core.global.exception.code.status.GlobalErrorStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
+import com.gpyeong.core.domain.curriculum.domain.entity.DayOfWeek;
+import com.gpyeong.core.domain.curriculum.domain.entity.MeetingTime;
 
 @Slf4j
 @Service
@@ -23,6 +31,8 @@ public class TimetableGenerationService {
 
     private final SectionRepository sectionRepository;
     private final SubjectRepository subjectRepository;
+    private final TimetableRepository timetableRepository;
+    private final TimetableItemRepository timetableItemRepository;
 
     private static final int SCORE_DAY_OFF = 50;
     private static final int SCORE_NO_MORNING = 30;
@@ -117,27 +127,27 @@ public class TimetableGenerationService {
         if (request.avoidMorning()) {
             boolean hasMorning = timetable.stream()
                     .flatMap(s -> s.getMeetingTimes().stream())
-                    .anyMatch(mt -> mt.getStartTime().isBefore(MORNING_LIMIT));
+                    .anyMatch(mt -> mt.getStartTime().toLocalTime().isBefore(MORNING_LIMIT));
             if (!hasMorning)
                 score += SCORE_NO_MORNING;
         }
 
         // 밀집도 (Compactness) 점수 (우주공강 패널티)
-        var meetingsByDay = timetable.stream()
+        Map<DayOfWeek, List<MeetingTime>> meetingsByDay = timetable.stream()
                 .flatMap(s -> s.getMeetingTimes().stream())
                 .collect(Collectors
-                        .groupingBy(com.gpyeong.core.domain.curriculum.domain.entity.MeetingTime::getDayOfWeek));
+                        .groupingBy(MeetingTime::getDayOfWeek));
 
         int totalGapMinutes = 0;
         for (var entry : meetingsByDay.entrySet()) {
 
-            List<com.gpyeong.core.domain.curriculum.domain.entity.MeetingTime> meetings = new ArrayList<>(
+            List<MeetingTime> meetings = new ArrayList<>(
                     entry.getValue());
             meetings.sort((m1, m2) -> m1.getStartTime().compareTo(m2.getStartTime()));
 
             for (int i = 0; i < meetings.size() - 1; i++) {
-                LocalTime endCurrent = meetings.get(i).getEndTime();
-                LocalTime startNext = meetings.get(i + 1).getStartTime();
+                LocalDateTime endCurrent = meetings.get(i).getEndTime();
+                LocalDateTime startNext = meetings.get(i + 1).getStartTime();
 
                 long gap = java.time.Duration.between(endCurrent, startNext).toMinutes();
                 if (gap > 0) {
@@ -175,7 +185,7 @@ public class TimetableGenerationService {
         List<String> allCandidateIds = allCandidates.stream().map(Subject::getSubjectId).toList();
         List<Section> allCandidateSections = sectionRepository.findBySubjectIdIn(allCandidateIds);
 
-        java.util.Map<String, Integer> subjectCreditMap = allCandidates.stream()
+        Map<String, Integer> subjectCreditMap = allCandidates.stream()
                 .collect(Collectors.toMap(Subject::getSubjectId, Subject::getCredit));
 
         // 기존 필수 과목들의 학점 정보도 맵에 추가 필요 (calculateTotalCredits에서 사용됨)
@@ -280,5 +290,29 @@ public class TimetableGenerationService {
                 .distinct()
                 .mapToInt(id -> creditMap.getOrDefault(id, 0)) // Cache hit expected
                 .sum();
+    }
+
+    public String saveTimetable(Integer userId, TimetableGenerationRequest request, List<Section> sections) {
+        int totalCredits = calculateTotalCredits(sections);
+
+        Timetable timetable = Timetable.builder()
+                .userId(userId)
+                .yearId(request.yearId())
+                .semester(request.semester())
+                .summary("자동 생성된 시간표")
+                .totalCredit(totalCredits)
+                .build();
+
+        Timetable saved = timetableRepository.save(timetable);
+
+        List<TimetableItem> items = sections.stream()
+                .map(s -> TimetableItem.builder()
+                        .timetableId(saved.getTimetableId())
+                        .sectionId(s.getId())
+                        .build())
+                .collect(Collectors.toList());
+
+        timetableItemRepository.saveAll(items);
+        return saved.getTimetableId();
     }
 }

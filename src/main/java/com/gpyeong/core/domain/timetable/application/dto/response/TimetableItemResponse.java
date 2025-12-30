@@ -6,7 +6,7 @@ import com.gpyeong.core.domain.curriculum.domain.entity.Section;
 import com.gpyeong.core.domain.curriculum.domain.entity.Subject;
 import lombok.Builder;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -29,8 +29,8 @@ public record TimetableItemResponse(
     @Builder
     public record MeetingTimeDto(
             DayOfWeek dayOfWeek,
-            LocalTime startTime,
-            LocalTime endTime) {
+            LocalDateTime startTime,
+            LocalDateTime endTime) {
         public static MeetingTimeDto of(MeetingTime meetingTime) {
             return MeetingTimeDto.builder()
                     .dayOfWeek(meetingTime.getDayOfWeek())
