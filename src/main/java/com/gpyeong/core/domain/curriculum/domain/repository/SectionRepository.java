@@ -8,5 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface SectionRepository extends MongoRepository<Section, String> {
     List<Section> findBySubjectId(String subjectId);
 
+    List<Section> findBySubjectIdIn(List<String> subjectIds);
+
     List<Section> findByYearIdAndSemester(String yearId, SemesterEnum semester);
 }

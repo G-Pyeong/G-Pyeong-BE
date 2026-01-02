@@ -5,7 +5,7 @@ import com.gpyeong.core.domain.curriculum.domain.entity.DayOfWeek;
 import com.gpyeong.core.domain.curriculum.domain.entity.MeetingTime;
 import com.gpyeong.core.domain.curriculum.domain.entity.Section;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record SectionResponse(
@@ -31,8 +31,8 @@ public record SectionResponse(
 
     public record MeetingTimeResponse(
             DayOfWeek dayOfWeek,
-            LocalTime startTime,
-            LocalTime endTime) {
+            LocalDateTime startTime,
+            LocalDateTime endTime) {
         public static MeetingTimeResponse from(MeetingTime meetingTime) {
             return new MeetingTimeResponse(
                     meetingTime.getDayOfWeek(),
