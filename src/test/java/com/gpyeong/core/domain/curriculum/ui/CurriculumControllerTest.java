@@ -13,13 +13,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -85,7 +84,8 @@ class CurriculumControllerTest {
 
                 String subjectId = "sub1";
                 SectionResponse.MeetingTimeResponse meetingTime = new SectionResponse.MeetingTimeResponse(
-                                DayOfWeek.MON, LocalTime.of(9, 0), LocalTime.of(10, 30));
+                                DayOfWeek.MON, LocalDateTime.of(2024, 3, 4, 9, 0),
+                                LocalDateTime.of(2024, 3, 4, 10, 30));
                 List<SectionResponse> responses = List.of(
                                 new SectionResponse("sec1", subjectId, "001", "Prof. Kim", "2024",
                                                 SemesterEnum.FIRST_SEMESTER,
